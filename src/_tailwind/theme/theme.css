@@ -1,0 +1,31 @@
+@theme {
+    /* Fonts */
+    --font-primary-stack:   system-ui, sans-serif;
+    --font-secondary-stack: ui-monospace, 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+
+    /* Text sizes */
+    --text-step-0: 0.75rem;
+    --text-step-1: 1.00rem;
+    --text-step-2: 1.25rem;
+    --text-step-3: 1.50rem;
+    --text-step-4: 1.75rem;
+
+    /* Spacing */
+    --spacing-body:    85ch;
+    --spacing-default: 1rem;
+    --spacing-double:  calc(var(--spacing-default)*2);
+    --spacing-half:    calc(var(--spacing-default)/2);
+
+    /* Colors */
+    --color-typography:      #1f2328;
+    --color-base:            #f6f6f6;
+    --color-body:            #ffffff;
+    --color-accent:          #0969da;
+    --color-highlight:       #afb8c133;
+
+    --color-typography-dark: #cdd6f4;
+    --color-base-dark:       #1e1e2e;
+    --color-body-dark:       #191927;
+    --color-accent-dark:     #cba6f7;
+    --color-highlight-dark:  #6c708666;
+}

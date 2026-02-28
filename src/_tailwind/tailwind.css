@@ -1,7 +1,10 @@
 @import "tailwindcss/theme" layer(theme);
-@import "./theme.css" layer(theme);
-@import "./fonts.css" layer(theme);
+@import "./theme/theme.css" layer(theme);
+
 @import "tailwindcss/preflight" layer(base);
 @import "tailwindcss/utilities" layer(utilities);
-@import "./blog.css" layer(components);
-@import "./shiki.css" layer(components);
+
+@import "./components/default.css" layer(components);
+@import "./components/shiki.css" layer(components);
+
+@custom-variant dark (&:where(.darkmode, .darkmode *));
