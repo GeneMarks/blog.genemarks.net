@@ -48,8 +48,10 @@ export default function(config) {
 
     // Plugins
     config.addPlugin(shikiPlugin, {
-        theme: "github-dark-high-contrast",
-        themes: ["github-dark-high-contrast"],
+        themes: {
+            light: "gruvbox-light-hard",
+            dark: "github-dark-default",
+        },
         langs: ["asm", "bat", "c", "cmake", "cpp", "csharp", "css", "diff", "docker", "fsharp", "go", "html", "http", "ini", "java", "javascript", "json", "jsonc", "log", "lua", "make", "markdown", "nginx", "php", "powershell", "python", "regexp", "rust", "shellscript", "sql", "ssh-config", "toml", "typescript", "xml", "yaml"],
     });
 
