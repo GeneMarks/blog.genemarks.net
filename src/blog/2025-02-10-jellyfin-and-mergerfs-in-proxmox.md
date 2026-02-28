@@ -2,7 +2,7 @@
 title: Jellyfin and mergerfs in Proxmox
 ---
 
-[![mergerfs github](/assets/blog/mergerfs.png)](https://github.com/trapexit/mergerfs)
+[![mergerfs github](/uploads/mergerfs.png)](https://github.com/trapexit/mergerfs)
 
 As someone who has used Jellyfin pretty much since the initial Emby fork, I've had many years to tweak and optimize parts of my setup. After several iterations, my current structure has been the longest serving and most stable by far.
 

@@ -48,8 +48,9 @@ export default function(config) {
 
     // Passthroughs
     config.addPassthroughCopy("src/assets/**/*");
-    config.addPassthroughCopy("src/public_key.asc");
+    config.addPassthroughCopy("src/uploads/**/*");
     config.addPassthroughCopy("src/favicon.jpg");
+    config.addPassthroughCopy("src/public_key.asc");
 
     // Plugins
     config.addPlugin(shikiPlugin, {
