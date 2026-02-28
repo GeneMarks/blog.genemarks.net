@@ -2,27 +2,12 @@
 layout: layouts/default.html
 ---
 
-{% set posts = collections.post | reverse %}
-
-<ul class="font-secondary">
-    {%- for post in posts -%}
-
-    {% set first_item = posts | first == post %}
-
-    <li class="{{ "mt-5" if not first_item }} {{ "sm:mt-2" if not first_item }} flex flex-col sm:gap-10 sm:flex-row">
-        <div class="flex-none">
-            {{ post.date.toLocaleDateString("en-CA", { timeZone: "UTC" }) }}
-        </div>
-        <a href="{{ post.url }}" class="w-full text-primarylink underline hover:text-primarylinkhover hover:bg-primarylinkhoverbg">{{ post.data.title }}</a>
-    </li>
-    {%- endfor -%}
-</ul>
-
-<div class="hidden fixed bottom-0 right-28 xl:block">
-    <noscript>
-        <img src="/assets/images/gene_sprites/7.gif" style="-mt-12 image-rendering: pixelated; filter: drop-shadow(12px 0px 0px rgba(0, 0, 0, 0.2));">
-    </noscript>
-    <img id="gene-sprite" style="image-rendering: pixelated; filter: drop-shadow(12px 0px 0px rgba(0, 0, 0, 0.2));">
+<div>
+    <p>This website is a place for me to write anything that comes to mind, with an emphasis on software and tech.</p>
 </div>
 
-<script src="/assets/js/sprite-loader.js" defer></script>
+<h2 class="mt-default">Recent posts</h2>
+{% set posts = collections.post | reverse %}
+{% set postsLimit = 8 %}
+{% include "partials/postsList.html" %}
+<a href="/blog" class="inline-block mt-default">More</a>

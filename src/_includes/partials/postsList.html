@@ -1,0 +1,16 @@
+<ul class="mt-default">
+    {%- for post in posts -%}
+        {% set first_item = (loop.index0 == 0) %}
+
+        {% if postsLimit is not defined or postsLimit == -1 or loop.index0 < postsLimit %}
+            <li>
+                <div class="flex flex-col sm:flex-row">
+                    <span class="min-w-[12ch]">
+                        <i><time datetime="{{ post.date.toISOString() }}">{{ post.date | formatPostDate }}</time></i>
+                    </span>
+                    <a href="{{ post.url }}">{{ post.data.title }}</a>
+                </div>
+            </li>
+        {% endif %}
+    {%- endfor -%}
+</ul>

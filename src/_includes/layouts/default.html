@@ -1,44 +1,34 @@
 <!doctype html>
 <html lang="en">
     <head>
+        <script>
+            function applyTheme() {
+                document.documentElement.classList.toggle(
+                    "darkmode",
+                    localStorage.theme === "dark" ||
+                    (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+                );
+            }
+
+            applyTheme();
+        </script>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}">
         <link rel="icon" href="{{ '/favicon.jpg' | url }}" type="image/jpeg">
-        <link rel="preload" href="/assets/fonts/cascadia_mono-2407.24.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="preload" href="/assets/fonts/cascadia_mono-2407.24-italic.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="preload" href="/assets/fonts/source_sans_3-5.2.9-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="preload" href="/assets/fonts/source_sans_3-5.2.9-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
-        <title>{{ title or "genemarks.net" }}</title>
+        <title>{{ title or "Gene's Blog" }}</title>
     </head>
 
-    <body class="bg-footerbg text-primarytext text-normal font-primary">
-        {% include "partials/header.html" %}
+    <body class="px-half pb-default leading-5 text-step-1 text-typography dark:text-typography-dark font-primary-stack bg-base dark:bg-base-dark">
+        <div class="flex flex-col w-full max-w-body mx-auto p-default bg-body dark:bg-body-dark">
+            {% include "partials/header.html" %}
 
-        <main class="flex flex-col items-center pb-20 pt-8 px-6 bg-bodybg xl:pb-50 xl:flex-row xl:items-baseline">
-            <div class="flex-1 hidden xl:block"></div>
-
-            <div class="w-full lg:mx-4 lg:max-w-body">
+            <main>
                 {{ content | safe }}
-            </div>
+            </main>
 
-            {% set projects = collections.sortedProjects %}
-
-            <ul class="flex-1 mt-10 w-full lg:max-w-body xl:max-w-full xl:min-w-[320px] xl:-mt-18">
-                {%- for project in projects -%}
-
-                {% set p = project.data %}
-                {% set first_item = projects | first == project %}
-                {% set priority = p.priority == 0 %}
-
-                <li class="{{ "mt-2" if not first_item }} flex flex-row items-center gap-2">
-                    <img src="/assets/images/projects/{{ p.img }}" class="w-full max-w-[75px] xl:max-w-full xl:w-[100px]" alt="{{ p.desc }}">
-                    <a target="_blank" class="{{ "xl:mt-5" if first_item }} font-secondary text-header italic font-bold text-nowrap hover:underline" href="{{ p.link }}">{{ p.title }}{{ "!" if priority }}</a>
-                </li>
-                {%- endfor -%}
-            </ul>
-        </main>
-
-        {% include "partials/footer.html" %}
+            {% include "partials/footer.html" %}
+        </div>
     </body>
 </html>

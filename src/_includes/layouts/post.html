@@ -3,23 +3,19 @@ layout: layouts/default.html
 ---
 
 <article>
-    <div class="blogheader mb-8 font-secondary">
-        <h1 class="px-2 text-heading bg-postheaderbg text-postheadertext font-bold">{{ title }}</h1>
-        <div class="px-2 py-1 italic text-sub text-postdatetext bg-postdatebg">{{ page.date | formatPostDate }}</div>
-    </div>
+    <h2>{{ title }}</h2>
+    <aside class="mt-half italic">{{ page.date | formatPostDate }}</aside>
 
-    <div class="blogpost text-posttext">
-        {{ content | safe }}
-    </div>
+    {{ content | safe }}
 
-    <div class="mt-12 px-2 font-secondary text-sub text-postdatetext bg-postdatebg italic">Modified {{ modified | formatDetailedDateTime }}</div>
+    <aside class="mt-double italic">Modified {{ modified | formatDetailedDateTime }}</aside>
 </article>
 
 {% set posts = collections.post %}
 {% set previous = posts | getPreviousCollectionItem %}
 
 {% if previous %}
-<nav class="mt-4 font-secondary">
-    <a class="w-full text-primarylink underline hover:text-primarylinkhover hover:bg-primarylinkhoverbg" href="{{ previous.url }}">>{{ previous.data.title }}</a>
-</nav>
+    <nav>
+        <span>Next: <a href="{{ previous.url }}">{{ previous.data.title }}</a></span>
+    </nav>
 {% endif %}

@@ -1,5 +1,46 @@
-<header class="border-b-4 border-headerborder">
-    <a href="/" class="flex w-full justify-center px-4 py-2 fill-headertext bg-headerbg hover:fill-headertexthover hover:bg-headerbghover">
-        {% include "partials/logo.html" %}
-    </a>
+<header class="mb-default">
+    <h1 class="underline font-semibold">
+        <a href="/" class="inline-block">Gene's blog</a>
+    </h1>
+    <nav class="flex flex-row flex-wrap gap-default w-full px-[calc(var(--spacing-default)*0.5)] py-[calc(var(--spacing-default)*0.25)] text-step-1 mt-default bg-highlight dark:bg-highlight-dark">
+        <a href="/" class="hover:underline hover:text-accent dark:hover:text-accent-dark">Home</a>
+        <a href="/blog" class="hover:underline hover:text-accent dark:hover:text-accent-dark">Blog</a>
+        <a href="mailto:genemarks74@gmail.com" class="hover:underline hover:text-accent dark:hover:text-accent-dark">Email</a>
+        <a href="/feed" class="hover:underline hover:text-accent dark:hover:text-accent-dark">Feed</a>
+        <button id="themeToggle" type="button" aria-label="toggle theme" class="ml-auto hover:cursor-pointer hover:underline hover:text-accent dark:hover:text-accent-dark"></button>
+
+        <script>
+            const key = "theme";
+            const states = ["system", "dark", "light"];
+            const themeToggle = document.getElementById("themeToggle");
+
+            function getCurrentTheme() {
+                return localStorage.getItem(key) ?? "system";
+            }
+
+            function setThemeState(state) {
+                if (state === "system") {
+                    localStorage.removeItem(key);
+                } else {
+                    localStorage.setItem(key, state);
+                }
+            }
+
+            function applyThemeToggleText(state) {
+                if (!themeToggle) return;
+                themeToggle.innerHTML = state[0].toUpperCase() + state.slice(1);;
+            }
+
+            applyThemeToggleText(getCurrentTheme());
+
+            themeToggle?.addEventListener("click", () => {
+                const current = getCurrentTheme();
+                const next = states[(states.indexOf(current) + 1) % states.length];
+
+                setThemeState(next);
+                applyTheme();
+                applyThemeToggleText(next);
+            });
+        </script>
+    </nav>
 </header>
