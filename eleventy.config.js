@@ -1,3 +1,5 @@
+import metadata from "./src/_data/metadata.js";
+import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import shikiPlugin from "./plugins/shikiPlugin.js";
 
 export const config = {
@@ -46,6 +48,25 @@ export default function(config) {
     config.addPassthroughCopy("src/public_key.asc");
 
     // Plugins
+    config.addPlugin(feedPlugin, {
+        type: "atom",
+        outputPath: "/feed.xml",
+        collection: {
+            name: "post",
+            limit: 10, // 0 for no limit
+        },
+        metadata: {
+            language: "en",
+            title: metadata.siteName,
+            subtitle: metadata.siteDesc,
+            base: metadata.url,
+            author: {
+                name: metadata.authorName,
+                email: metadata.authorEmail,
+            }
+        }
+    });
+
     config.addPlugin(shikiPlugin, {
         themes: {
             light: "gruvbox-light-hard",
