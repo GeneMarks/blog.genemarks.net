@@ -1,7 +1,5 @@
 A simple responsive blog made using 11ty and Tailwind CSS.
 
-The current design is heavily inspired by Windows 95, though every once in a while I'll get an urge to change it. In which case I'll use a new branch.
-
 ## Development
 1. Clone the repo.
 2. Navigate to local repo folder and execute `npm install`.
