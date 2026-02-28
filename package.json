@@ -9,10 +9,8 @@
         "build:css": "tailwindcss-cli -i ./src/_tailwind/tailwind.css -o ./dist/assets/css/main.css --postcss"
     },
     "type": "module",
-    "dependencies": {
-        "@11ty/eleventy": "^3.1.2"
-    },
     "devDependencies": {
+        "@11ty/eleventy": "^3.1.2",
         "@shikijs/transformers": "^3.22.0",
         "@tailwindcss/postcss": "^4.1.11",
         "autoprefixer": "^10.4.21",
