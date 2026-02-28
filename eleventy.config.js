@@ -26,15 +26,14 @@ export default function(config) {
     });
 
     config.addFilter("formatPostDate", (value) => {
-        const formatted = new Intl.DateTimeFormat("en-US", {
+        const formatted = new Intl.DateTimeFormat("en-GB", {
             timeZone: "UTC",
-            weekday: "long",
             year: "numeric",
-            month: "long",
+            month: "short",
             day: "2-digit",
         }).format(value);
 
-        return formatted;
+        return formatted.replace(/ (\d{4})$/, ", $1");
     });
 
     // Global data
