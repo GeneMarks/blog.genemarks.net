@@ -1,5 +1,5 @@
 {
-    "name": "gene-personal-site",
+    "name": "blog.genemarks.net",
     "scripts": {
         "dev": "npm-run-all -p dev:*",
         "build": "npm-run-all -p build:*",
