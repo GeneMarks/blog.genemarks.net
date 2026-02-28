@@ -5,12 +5,6 @@ export const config = {
 };
 
 export default function(config) {
-    //Collections
-    config.addCollection("sortedProjects", (collectionsApi) => {
-        return collectionsApi.getFilteredByTag("projects").sort((a, b) =>
-            a.data.priority - b.data.priority);
-    });
-
     // Directories
     config.setInputDirectory("src");
     config.setOutputDirectory("dist");
