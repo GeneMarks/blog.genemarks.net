@@ -4,7 +4,7 @@ title: Starting processes in job objects with C#
 
 Raymond Chen wrote a helpful [article](https://devblogs.microsoft.com/oldnewthing/20230209-00/?p=107812) explaining the safest method of starting a process directly in a job object on Windows 10 and above. (I say "safest", because it avoids a pesky race condition cleanly and effectively; but more on that later.) Working directly with the Windows API in C# is a different story. Nevertheless, it's something we must do when attempting to replicate Chen's logic.
 
-## Creating a job object
+### Creating a job object
 It's recommended that modern .NET apps use [CsWin32](https://github.com/microsoft/CsWin32) for P/Invoke support, so that's what we'll do. At this point, our `NativeMethods.txt` only needs one entry:
 
 ```
@@ -25,7 +25,7 @@ public static SafeFileHandle CreateJobHandle()
 }
 ```
 
-### As an aside
+#### As an aside
 You'll notice I won't take up space writing any error handling in this article. As a general WinAPI rule, when a system function fails, it will usually return `0`. To obtain the error code and create an exception, you can do something like:
 
 ```cs
@@ -35,7 +35,7 @@ var win32Ex = new Win32Exception(errorCode);
 
 With that being said, let's move on to the main course... How can we start a process *in* our newly created job object?
 
-## The gotchas of the Process class
+### The gotchas of the Process class
 Looking at Microsoft's [documentation](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.process?view=net-10.0) for .NET's `Process` class, we see many useful members. We can use a `StartInfo` object to set characteristics of the process before starting it. We can even access the underlying OS handle with `Process.Handle`.
 
 What we *can't* do is manipulate the process's native attribute list.
@@ -57,7 +57,7 @@ These possibilities are too dangerous to ignore, which is why typical methodolog
 
 As you can guess, starting processes suspended [isn't possible with .NET](https://github.com/dotnet/runtime/issues/94127) at the moment. You would still have to rely on more P/Invoke to replicate this technique in C#. However, on newer versions of Windows this strategy is obsolete anyway. As Chen notes, there is a modern process attribute we can take advantage of...
 
-## PROC_THREAD_ATTRIBUTE_JOB_LIST
+### PROC_THREAD_ATTRIBUTE_JOB_LIST
 According to the [Microsoft docs](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-updateprocthreadattribute#parameters), `PROC_THREAD_ATTRIBUTE_JOB_LIST` is a "pointer to a list of job handles to be assigned to the child process." Essentially a golden ticket for our needs (**assuming you're using Windows 10 or later**). By assigning the job object to our future process's extended attribute list before it is created, we can effectively avoid "hacky" solutions involving process suspension altogether.
 
 To get started, we're going to need several more entries in `NativeMethods.txt`. It should now include the following:
@@ -183,7 +183,7 @@ By passing `true` to the `ownsHandle` parameter, we relinquished ownership of th
 
 Lastly, it's vital not to forget about the attribute list and the unmanaged memory we allocated for it earlier.
 
-## The complete package
+### The complete package
 It took awhile, but we've now constructed a custom solution that can start a system process in a given job object. Putting the whole thing together, it looks like this:
 
 ```cs

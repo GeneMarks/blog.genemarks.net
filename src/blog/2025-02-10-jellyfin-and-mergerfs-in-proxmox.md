@@ -8,14 +8,14 @@ As someone who has used Jellyfin pretty much since the initial Emby fork, I've h
 
 Its heart and soul being **mergerfs**.
 
-## What is mergerfs?
+### What is mergerfs?
 > mergerfs is a FUSE based union filesystem geared towards simplifying storage and management of files across numerous commodity storage devices. It is similar to mhddfs, unionfs, and aufs.<cite>[trapexit/mergerfs](https://github.com/trapexit/mergerfs)</cite>
 
 If just one thing is taken away, let it be "*union filesystem*." Essentially, mergerfs lets you pool multiple directories or filesystems into a single mount point. There are many reasons you might want to achieve this, but my main use case is for serving the media and metadata for Jellyfin together in a Proxmox LXC.
 
 More specifically, the media itself, located on a NAS, is mounted as a read-only SMB share. The metadata - including .nfo's, images, and subtitles - are located directly in the Jellyfin container.
 
-## Why merge these directories?
+### Why merge these directories?
 While I've always preferred the concept of keeping metadata next to my media files, two deal breakers have kept me from actually doing it.
 
 1. **Security**: The media share accessed by Jellyfin must be read-only. I don't want the container to have any means to delete or alter my data. Of course, this means Jellyfin wouldn't be able to create or modify metadata next to the media.
@@ -27,7 +27,7 @@ Using mergerfs gives us a solution that is...
 - **Organized**: The *meta* folder structure mimics what we're used to putting media in.
 - **Flexible**: Kodi, Plex, Jellyfin, and Emby should all recognize your collection properly via the merged mount.
 
-## The Setup
+### The Setup
 The first peice in this equation is making sure your media share is available in the LXC. The simplest way to achieve this is by first mounting it on the Proxmox host itself.
 
 Here's the line in my fstab that accomplishes that:
@@ -84,7 +84,7 @@ After=local-fs.target
 
 That's pretty much all there is to it! Restart, boot up Jellyfin and use the `media` folder as the source for your libraries. Oh, and enable the library settings that save .nfo's and artwork next to media.
 
-## Caveats
+### Caveats
 mergerfs is [FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) based. It's acknowledged that user-space filesystem implementations can struggle to match the speed of traditional kernel-space due to all of the context switches and sys calls in the chain of operations. *Could* this setup be more efficient? In theory.
 
 But to put it bluntly, I don't find the idea of making a container privileged *just* to chase numerical performance gains all that necessary.

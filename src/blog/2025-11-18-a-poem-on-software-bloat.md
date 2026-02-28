@@ -2,7 +2,7 @@
 title: A poem on software bloat
 ---
 
-## Bloat
+### Bloat
 Bloat is real, bloat is fake.\
 A giraffe has four ~~stomachs~~ ~~compartments~~.
 
